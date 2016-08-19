@@ -1,0 +1,5 @@
+argparse
+lxml
+mechanize
+requests
+colorama
