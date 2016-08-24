@@ -18,6 +18,7 @@ from modules.Okcupid import okcupid
 from modules.Pinterest import pinterest
 from modules.Reddit import reddit
 from modules.Square import square
+from modules.Stumbleupon import stumbleupon
 from modules.Tumblr import tumblr
 from modules.Twitter import twitter
 from modules.Venmo import venmo
@@ -47,22 +48,23 @@ modules = [
   facebook, foursquare, github,
   instagram, klout, linkedin,
   myspace, netflix, okcupid,
-  pinterest, reddit,  square,
-  tumblr, twitter, venmo,
-  yelp
+  pinterest, reddit, square,
+  stumbleupon, tumblr, twitter,
+  venmo, yelp
 ]
 
 email_modules = [
   adobe, airbnb, etsy,
   foursquare, github, klout,
   linkedin, netflix, okcupid,
-  pinterest, square, tumblr,
-  twitter, yelp, venmo
+  pinterest, square, stumbleupon,
+  tumblr, twitter, yelp,
+  venmo
 ]
 username_modules = [
   etsy, github, instagram,
   okcupid, pinterest, reddit,
-  twitter
+  stumbleupon, twitter
 ]
 
 
