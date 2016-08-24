@@ -19,6 +19,14 @@ class Facebook(BaseModule):
         br["pass"] = password
         login_attempt = br.submit()
         login_html_str = str(login_attempt.read())
+        # Return if Facebook challenges the Login
+        if '/checkpoint/' in login_attempt.geturl():
+            return {
+                'module': self.__class__.__name__,
+                'auth_result': 'CHALLENGE',
+                'display_name': '',
+                'display_handle': ''
+            }
         # If 'login.php' in the URL, the login attempt failed
         if 'login.php' in login_attempt.geturl():
             return {
@@ -29,6 +37,7 @@ class Facebook(BaseModule):
             }
         # If 'welcome' or 'home.php' in URL, login succeeded.
         elif ('welcome' in login_attempt.geturl() or
+              'mobileprotection' in login_attempt.geturl() or
               'home.php' in login_attempt.geturl()):
             display_name = self.get_name_element(login_html_str)
             return {
@@ -37,7 +46,7 @@ class Facebook(BaseModule):
               'display_name': display_name,
               'display_handle': ''
             }
-        # If neither of the above occur, must be unknown issue
+        # If none of the above occur, must be unknown issue
         else:
             # Output a copy of the HTML that was returned for debugging
             debug_filename = str(self.__class__.__name__) + "_" + username + \

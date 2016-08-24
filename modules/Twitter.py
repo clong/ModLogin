@@ -33,7 +33,8 @@ class Twitter(BaseModule):
         )
         login_attempt_html = html.fromstring(login_attempt.content)
         # Return if Twitter challenges the login
-        if '/login_challenge' in str(login_attempt.url):
+        if ('/login_challenge' in str(login_attempt.url) or
+            '/login_verification' in str(login_attempt.url)):
             return {
                 'module': self.__class__.__name__,
                 'auth_result': 'CHALLENGE',
