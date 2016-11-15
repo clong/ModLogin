@@ -18,6 +18,14 @@ class Github(BaseModule):
         br["password"] = password
         login_attempt = br.submit()
         login_html_str = str(login_attempt.read())
+        # If '/two-factor' in the URL, Github is prompting for MFA code
+        if '/two-factor' in login_attempt.geturl():
+            return {
+                'module': self.__class__.__name__,
+                'auth_result': 'CHALLENGE',
+                'display_name': '',
+                'display_handle': ''
+            }
         # If '/login' or '/session' in the URL, the login attempt failed
         if ('/login' in login_attempt.geturl() or
             '/session' in login_attempt.geturl()):
